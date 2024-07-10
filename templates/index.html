@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unclickable Button</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .button {
+            padding: 10px 20px;
+            cursor: pointer;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="button" id="clickMe">Click Me!</button>
+    <script>
+        const btn = document.getElementById('clickMe');
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            const btnBox = btn.getBoundingClientRect();
+            const btnX = btnBox.left + btnBox.width / 2;
+            const btnY = btnBox.top + btnBox.height / 2;
+            const distance = Math.sqrt(Math.pow(btnX - x, 2) + Math.pow(btnY - y, 2));
+            if (distance < 50) {
+                let newX = Math.random() * (window.innerWidth - btnBox.width);
+                let newY = Math.random() * (window.innerHeight - btnBox.height);
+                btn.style.left = `${newX}px`;
+                btn.style.top = `${newY}px`;
+            }
+        });
+    </script>
+</body>
+
+</html>
